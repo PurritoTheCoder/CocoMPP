@@ -4681,7 +4681,7 @@ document.body.getElementsByClassName("dialog").rename.appendChild(cd);
 
 const ef = document.createElement("button");
 ef.addEventListener("click", () => {
-  MPP.client.sendArray([{m: "userset", set:{tag: MPP.client.getOwnParticipant().tag}}]);
+  gClient.sendArray([{m: "userset", set:{tag: gClient.getOwnParticipant().tag}}]);
 });
 ef.innerText = "SET TAG";
 ef.className = "top-button";
