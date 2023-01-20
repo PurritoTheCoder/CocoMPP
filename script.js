@@ -4650,8 +4650,8 @@ $(function () {
     document.body.getElementsByClassName("dialog").rename.appendChild(cd);
 
     const ef = document.createElement("button");
-    ef.addEventListener("click", () => {
-      gClient.sendArray([{m: "userset", set:{tag: text: $("#rename input[name=tag]").val(), color: $("#rename input[name=tagcolor]").val()}}]);
+    ef.addEventListener("click", () =>
+      gClient.sendArray([{m: "userset", tag: {text: $("#rename input[name=tag]").val(), color: $("#rename input[name=tagcolor]").val()}}]);
     });
     ef.innerText = "SET TAG";
     ef.className = "top-button";
