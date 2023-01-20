@@ -233,7 +233,8 @@ class Client extends EventEmitter {
     offlineParticipant = {
         _id: "",
         name: "",
-        color: "#777"
+        color: "#777",
+        tag: {text: "None", color: "#000000"}
     };
 
     getOwnParticipant() {
