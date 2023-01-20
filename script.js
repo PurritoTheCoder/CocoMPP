@@ -4651,7 +4651,10 @@ $(function () {
 
     const ef = document.createElement("button");
     ef.addEventListener("click", () =>
-      gClient.sendArray([{m: "userset", tag: {text: $("#rename input[name=tag]").val(), color: $("#rename input[name=tagcolor]").val()}}]);
+      let tag = {};
+      tag.text = $("#rename input[name=tag]").val();
+      tag.color = $("#rename input[name=tagcolor]").val();
+      gClient.sendArray([{m: "userset", set: {tag: tag}}]);
     });
     ef.innerText = "SET TAG";
     ef.className = "top-button";
