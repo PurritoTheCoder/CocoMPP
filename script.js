@@ -4631,7 +4631,7 @@ $(function () {
 
 
   // Tags
-  setTimeout(function() {
+  gClient.on('hi', () => {
     const ab = document.createElement("input");
     ab.name = "tag";
     ab.type = "text";
@@ -4651,7 +4651,7 @@ $(function () {
 
     const ef = document.createElement("button");
     ef.addEventListener("click", () => {
-      gClient.sendArray([{m: "userset", set:{tag: gClient.getOwnParticipant().tag}}]);
+      gClient.sendArray([{m: "userset", set:{tag: text: $("#rename input[name=tag]").val(), color: $("#rename input[name=tagcolor]").val()}}]);
     });
     ef.innerText = "SET TAG";
     ef.className = "top-button";
@@ -4661,7 +4661,7 @@ $(function () {
  
     $("#rename input[name=tag]").val(gClient.getOwnParticipant().tag.text);
     $("#rename input[name=tagcolor]").val(gClient.getOwnParticipant().tag.color);
-  }, 2500);
+  });
 
 
 
