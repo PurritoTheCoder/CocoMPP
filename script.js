@@ -2694,14 +2694,13 @@ $(function () {
     for (var i in ls.u) {
       if (!ls.u.hasOwnProperty(i)) continue;
       var room = ls.u[i];
-      var info = $("#room .info[roomid=\"" + (room.id + '').replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0') + "\"]");
+      var info = $("#room .info[roomname=\"" + (room._id + '').replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0') + "\"]");
       if (info.length == 0) {
         info = $("<div class=\"info\"></div>");
         info.attr("roomname", room._id);
-        info.attr("roomid", room.id);
         $("#room .more").append(info);
       }
-      info.text(room.count + '/' + ('limit' in room.settings ? room.settings.limit : 20) + " " + room._id);
+      info.text(room.count + '/' + ('max' in room.settings ? room.settings.max : 20) + " " + room._id);
       if (room.settings.lobby) info.addClass("lobby");
       else info.removeClass("lobby");
       if (!room.settings.chat) info.addClass("no-chat");
