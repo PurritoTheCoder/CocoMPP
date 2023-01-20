@@ -1437,7 +1437,10 @@ input[type="range"]:hover {
 }
 
 .discord-button {
-    right: 36px;
+    position: fixed;
+    right: 6px;
+    top: 5px;
+    z-index: 200;
 }
 
 .reddit-button {
