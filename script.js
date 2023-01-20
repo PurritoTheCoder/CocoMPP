@@ -4689,8 +4689,8 @@ ef.style.position = "fixed";
 ef.style.height = "30px";
 document.body.getElementsByClassName("dialog").rename.appendChild(ef);
 
-$("#rename input[name=tag]").val(MPP.client.getOwnParticipant().tag.text);
-$("#rename input[name=tagcolor]").val(MPP.client.getOwnParticipant().tag.color);
+$("#rename input[name=tag]").val(gClient.getOwnParticipant().tag.text);
+$("#rename input[name=tagcolor]").val(gClient.getOwnParticipant().tag.color);
 
 // non-ad-free experience
 /*(function() {
