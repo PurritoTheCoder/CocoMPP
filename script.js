@@ -4650,7 +4650,7 @@ $(function () {
     document.body.getElementsByClassName("dialog").rename.appendChild(cd);
 
     const ef = document.createElement("button");
-    ef.addEventListener("click", () =>
+    ef.addEventListener("click", () => {
       let tag = {};
       tag.text = $("#rename input[name=tag]").val();
       tag.color = $("#rename input[name=tagcolor]").val();
