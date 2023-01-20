@@ -4630,7 +4630,36 @@ $(function () {
 
 
 
+  // Tags
+  const ab = document.createElement("input");
+  ab.name = "tag";
+  ab.type = "text";
+  ab.placeholder = "Tag";
+  ab.maxLength = "50";
+  ab.className = "text";
+  ab.style = "width: 100px; height: 20px;";
+  document.body.getElementsByClassName("dialog").rename.appendChild(ab);
 
+  const cd = document.createElement("input");
+  cd.name = "tagcolor";
+  cd.type = "color";
+  cd.placeholder = "";
+  cd.maxlength = "7";
+  cd.className = "color";
+  document.body.getElementsByClassName("dialog").rename.appendChild(cd);
+
+  const ef = document.createElement("button");
+  ef.addEventListener("click", () => {
+    gClient.sendArray([{m: "userset", set:{tag: gClient.getOwnParticipant().tag}}]);
+  });
+  ef.innerText = "SET TAG";
+  ef.className = "top-button";
+  ef.style.position = "fixed";
+  ef.style.height = "30px";
+  document.body.getElementsByClassName("dialog").rename.appendChild(ef);
+ 
+  $("#rename input[name=tag]").val(gClient.getOwnParticipant().tag.text);
+  $("#rename input[name=tagcolor]").val(gClient.getOwnParticipant().tag.color);
 
 
 
@@ -4662,35 +4691,6 @@ $(function () {
 
 ////////////////////////////////////////////////////////////////
 
-const ab = document.createElement("input");
-ab.name = "tag";
-ab.type = "text";
-ab.placeholder = "Tag";
-ab.maxLength = "50";
-ab.className = "text";
-ab.style = "width: 100px; height: 20px;";
-document.body.getElementsByClassName("dialog").rename.appendChild(ab);
-
-const cd = document.createElement("input");
-cd.name = "tagcolor";
-cd.type = "color";
-cd.placeholder = "";
-cd.maxlength = "7";
-cd.className = "color";
-document.body.getElementsByClassName("dialog").rename.appendChild(cd);
-
-const ef = document.createElement("button");
-ef.addEventListener("click", () => {
-  gClient.sendArray([{m: "userset", set:{tag: gClient.getOwnParticipant().tag}}]);
-});
-ef.innerText = "SET TAG";
-ef.className = "top-button";
-ef.style.position = "fixed";
-ef.style.height = "30px";
-document.body.getElementsByClassName("dialog").rename.appendChild(ef);
-
-$("#rename input[name=tag]").val(gClient.getOwnParticipant().tag.text);
-$("#rename input[name=tagcolor]").val(gClient.getOwnParticipant().tag.color);
 
 // non-ad-free experience
 /*(function() {
