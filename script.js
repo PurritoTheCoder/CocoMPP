@@ -4631,7 +4631,10 @@ $(function () {
 
 
   // Tags
+  let tagsButtonEnabled = false;
   gClient.on('hi', () => {
+    if (tagsButtonEnabled) return;
+    else tagsButtonEnabled = true;
     const ab = document.createElement("input");
     ab.name = "tag";
     ab.type = "text";
