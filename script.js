@@ -4631,6 +4631,7 @@ $(function () {
 
 
   // Tags
+  /*
   let tagsButtonEnabled = false;
   gClient.on('hi', () => {
     if (tagsButtonEnabled) return;
@@ -4667,7 +4668,7 @@ $(function () {
  
     $("#rename input[name=tag]").val(gClient.getOwnParticipant().tag.text);
     $("#rename input[name=tagcolor]").val(gClient.getOwnParticipant().tag.color);
-  });
+  });*/
 
 
 
