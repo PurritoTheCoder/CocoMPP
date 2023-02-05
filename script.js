@@ -2951,6 +2951,7 @@ $(function () {
       var msg = { m: "siteban" };
 
       msg.id = $("#siteban .text[name=id]").val();
+      msg._id = $("#siteban .text[name=id]").val();
 
       var durationUnit = $("#siteban select[name=durationUnit]").val();
       if (durationUnit === "permanent") {
@@ -2994,10 +2995,15 @@ $(function () {
       }
       msg.reason = reason;
 
-      var note = $("#siteban textarea[name=note]").val();
-      if (note) {
-        msg.note = note;
+      var note;
+      if (note.length === 0) {
+          $("#siteban p[name=errorText]").text("Please provide a note.");
+          return;
+        }
+      } else {
+        note = $("#siteban textarea[name=note]").val();
       }
+      msg.note = note;
 
       closeModal();
       gClient.sendArray([msg]);
