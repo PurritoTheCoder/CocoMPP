@@ -2996,6 +2996,7 @@ $(function () {
       msg.reason = reason;
 
       var note;
+      note = $("#siteban textarea[name=note]").val();
       if (note.length === 0) {
           $("#siteban p[name=errorText]").text("Please provide a note.");
           return;
