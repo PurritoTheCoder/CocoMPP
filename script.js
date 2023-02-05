@@ -2999,8 +2999,7 @@ $(function () {
       if (note.length === 0) {
           $("#siteban p[name=errorText]").text("Please provide a note.");
           return;
-        }
-      } else {
+        } else {
         note = $("#siteban textarea[name=note]").val();
       }
       msg.note = note;
