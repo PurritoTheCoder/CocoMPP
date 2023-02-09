@@ -1352,7 +1352,7 @@ $(function () {
   if (window.location.hostname === "localhost") {
     var gClient = new Client("ws://localhost");
   } else {
-    var gClient = new Client('wss://mpp.hyye.tk');
+    var gClient = new Client('wss://mppws.hyye.tk');
   }
   if (loginInfo) {
     gClient.setLoginInfo(loginInfo);
