@@ -1002,7 +1002,7 @@ $(function () {
   if (window.location.hostname === "localhost") {
     var soundDomain = `http://${location.host}`;
   } else {
-    var soundDomain = 'https://mppclone.com';
+    var soundDomain = 'https://mpp.hyye.tk';
   }
 
   function SoundSelector(piano) {
