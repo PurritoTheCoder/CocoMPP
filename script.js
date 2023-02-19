@@ -4626,10 +4626,6 @@ $(function () {
     }
   })();
 
-  if (window !== top) {
-    alert("Hey, it looks like you're visiting our site through another website. Consider playing Multiplayer Piano directly at https://mppclone.com")
-  }
-
 
 
 
