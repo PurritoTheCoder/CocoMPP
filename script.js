@@ -3,64 +3,7 @@
 $(function () {
 
   console.log("%cWelcome to OpenMPP's developer console!", "color:blue; font-size:20px;");
-  //console.log("%cCheck out the source code: https://github.com/LapisHusky/mppclone/tree/main/client\nGuide for coders and bot developers: https://docs.google.com/document/d/1OrxwdLD1l1TE8iau6ToETVmnLuLXyGBhA0VfAY1Lf14/edit?usp=sharing", "color:gray; font-size:12px;")
-
-  const loadScript = function (url) {
-    return new Promise(function (resolve, reject) {
-      const script = document.createElement('script');
-        script.src = url;
-
-        script.addEventListener('load', function () {
-            // The script is loaded completely
-            resolve(true);
-        });
-
-        document.head.appendChild(script);
-    });
-  };
-  
-  function setupMarkdown() {
-    var renderer = new marked.Renderer();
-    renderer.image = function (text) {
-      return text;
-    };
-    renderer.link = function (href, title, text) {
-        if (this.options.sanitize) {
-            try {
-                let prot = decodeURIComponent(unescape(href))
-                    .replace(/[^\w:]/g, "")
-                    .toLowerCase();
-
-                if (prot.indexOf("javascript:") === 0 || prot.indexOf("vbscript:") === 0 || prot.indexOf("data:") === 0) {
-                    return "";
-                }
-            } catch (e) {
-                return "";
-            }
-        }
-
-        // Only interpret links that contain a protocol
-        if (!text.startsWith("http://") && !text.startsWith("https://")) {
-            return text;
-        }
-
-        return `<a href="${ encodeURI(href) }" target="_blank">${ text }</a>`;
-    };
-    renderer.codespan = function(code) {
-      return `<code>${code}</code>`.split('&amp;').join('&');
-    };
-    marked.setOptions({
-      renderer: renderer
-    });
-  }
-  
-  if (!window.marked) {
-    loadScript("https://cdn.jsdelivr.net/npm/marked/marked.min.js").then(() => {
-      setupMarkdown();
-    });
-  } else {
-      setupMarkdown();
-  }
+  //console.log("%cCheck out the source code: https://github.com/LapisHusky/mppclone/tree/main/client\nGuide for coders and bot developers: https://docs.google.com/document/d/1OrxwdLD1l1TE8iau6ToETVmnLuLXyGBhA0VfAY1Lf14/edit?usp=sharing", "color:gray; font-size:12px;");
 
   var test_mode = (window.location.hash && window.location.hash.match(/^(?:#.+)*#test(?:#.+)*$/i));
 
@@ -271,7 +214,7 @@ $(function () {
       "New Room...": {
         "pt": "Nova Sala ...",
         "es": "Nueva sala de...",
-        "ru": "Создать комнату...",
+        "ru": "Новая комната...",
         "ja": "新しい部屋",
         "zh": "新房间",
         "nl": "nieuwe Kamer",
@@ -998,12 +941,8 @@ $(function () {
   // Soundpack Stuff by electrashave ♥
 
   ////////////////////////////////////////////////////////////////
-
-  if (window.location.hostname === "localhost") {
-    var soundDomain = `http://${location.host}`;
-  } else {
-    var soundDomain = 'https://mpp.hyye.tk';
-  }
+  
+  var soundDomain = 'https://' + window.location.hostname;
 
   function SoundSelector(piano) {
     this.initialized = false;
@@ -1350,7 +1289,7 @@ $(function () {
 
   var wssport = 8443;
   if (window.location.hostname === "localhost") {
-    var gClient = new Client("ws://localhost");
+    var gClient = new Client("ws://localhost:8443");
   } else {
     var gClient = new Client('wss://mppws.hyye.tk');
   }
@@ -1372,9 +1311,9 @@ $(function () {
     youreMentioned = false;
     var count = Object.keys(MPP.client.ppl).length;
     if (count > 0) {
-      document.title = "OpenMPP (" + count + ")";
+      document.title = "Piano (" + count + ")";
     } else {
-      document.title = "OpenMPP";
+      document.title = "Multiplayer Piano";
     }
   });
 
@@ -1391,9 +1330,9 @@ $(function () {
       if (count > 0) {
         $("#status").html('<span class="number">' + count + '</span> ' + (count == 1 ? 'person is' : 'people are') + ' playing');
         if (!tabIsActive && youreMentioned) return;
-        document.title = "OpenMPP (" + count + ")";
+        document.title = "Piano (" + count + ")";
       } else {
-        document.title = "OpenMPP";
+        document.title = "Multiplayer Piano";
       }
     });
   })();
@@ -2434,7 +2373,7 @@ $(function () {
 
       $('<div class="menu-item">Mention</div>').appendTo(menu)
         .on("mousedown touchstart", function (evt) {
-          $('#chat-input')[0].value += '@' + part._id + ' ';
+          $('#chat-input')[0].value += '@' + part.id + ' ';
           setTimeout(() => {
             $('#chat-input').focus();
           }, 1);
@@ -2694,13 +2633,14 @@ $(function () {
     for (var i in ls.u) {
       if (!ls.u.hasOwnProperty(i)) continue;
       var room = ls.u[i];
-      var info = $("#room .info[roomname=\"" + (room._id + '').replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0') + "\"]");
+      var info = $("#room .info[roomid=\"" + (room.id + '').replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0') + "\"]");
       if (info.length == 0) {
         info = $("<div class=\"info\"></div>");
         info.attr("roomname", room._id);
+        info.attr("roomid", room.id);
         $("#room .more").append(info);
       }
-      info.text(room.count + '/' + ('max' in room.settings ? room.settings.max : 20) + " " + room._id);
+      info.text(room.count + '/' + ('limit' in room.settings ? room.settings.limit : 20) + " " + room._id);
       if (room.settings.lobby) info.addClass("lobby");
       else info.removeClass("lobby");
       if (!room.settings.chat) info.addClass("no-chat");
@@ -2757,10 +2697,6 @@ $(function () {
       new Notification({ id: "share", title: "Playing alone", html: 'You are playing alone in a room by yourself, but you can always invite friends by sending them the link.<br><a href="' + location.href + '">' + location.href + '</a>', duration: 25000 });
     }, 1000);
   });
-
-
-
-
 
 
 
@@ -2951,7 +2887,6 @@ $(function () {
       var msg = { m: "siteban" };
 
       msg.id = $("#siteban .text[name=id]").val();
-      msg._id = $("#siteban .text[name=id]").val();
 
       var durationUnit = $("#siteban select[name=durationUnit]").val();
       if (durationUnit === "permanent") {
@@ -2995,15 +2930,10 @@ $(function () {
       }
       msg.reason = reason;
 
-      var note;
-      note = $("#siteban textarea[name=note]").val();
-      if (note.length === 0) {
-          $("#siteban p[name=errorText]").text("Please provide a note.");
-          return;
-        } else {
-        note = $("#siteban textarea[name=note]").val();
+      var note = $("#siteban textarea[name=note]").val();
+      if (note) {
+        msg.note = note;
       }
-      msg.note = note;
 
       closeModal();
       gClient.sendArray([msg]);
@@ -3048,6 +2978,29 @@ $(function () {
 
 
 
+
+
+
+  //Accounts
+
+  (function () {
+    function logout() {
+      delete localStorage.token;
+      gClient.stop();
+      gClient.start();
+      closeModal();
+    }
+    $("#account .logout-btn").click(function (evt) {
+      logout();
+    });
+    $("#account .login-discord").click(function (evt) {
+      if (location.hostname === "localhost") {
+        location.replace("https://discord.com/api/oauth2/authorize?client_id=926633278100877393&redirect_uri=http%3A%2F%2Flocalhost%2F%3Fcallback%3Ddiscord&response_type=code&scope=identify");
+      } else {
+        location.replace("https://discord.com/api/oauth2/authorize?client_id=926633278100877393&redirect_uri=https%3A%2F%2Fmppclone.com%2F%3Fcallback%3Ddiscord&response_type=code&scope=identify");
+      }
+    });
+  })();
 
 
 
@@ -3212,9 +3165,9 @@ $(function () {
 
       send: function (message) {
         if (gIsDming) {
-          gClient.sendArray([{ m: 'dm', _id: gDmParticipant._id, message: message }]);
+          gClient.sendArray([{ m: 'dm', _id: gDmParticipant._id, message }]);
         } else {
-          gClient.sendArray([{ m: "a", message: message }]);
+          gClient.sendArray([{ m: "a", message }]);
         }
       },
 
@@ -3277,27 +3230,22 @@ $(function () {
           li.find(".timestamp").text(new Date(msg.t).toLocaleTimeString());
         }
 
-        var message = $('<div>').text(msg.a).html().replace(/@([\da-f]{24})/g, (match, id) => {
-          var user;
-          Object.keys(gClient.ppl).map((tid) => {
-            if (id == gClient.ppl[tid]._id) user = gClient.ppl[tid];
-          });
+        const message = parseMarkdown(parseContent(msg.a), parseUrl).replace(/@([\da-f]{24})/g, (match, id) => {
+          const user = gClient.ppl[id];
           if (user) {
-            var nick = $('<div>').text(user.name).html();
+            const nick = parseContent(user.name);
             if (user.id === gClient.getOwnParticipant().id) {
               if (!tabIsActive) {
                 youreMentioned = true;
-                document.title = "You were mentioned!";
+                document.title = 'You were mentioned!';
               }
               return `<span class="mention" style="background-color: ${user.color};">${nick}</span>`;
-            }
-            else return "@" + nick;
-          }
-          else return match;
+            } else return `@${nick}`;
+          } else return match;
         });
 
         //apply names, colors, ids
-        li.find(".message").html(marked.parseInline(message));
+        li.find(".message").html(message);
 
         if (msg.m === 'dm') {
           if (!gNoChatColors) li.find(".message").css("color", msg.sender.color || "white");
@@ -3745,77 +3693,6 @@ $(function () {
     soundSelector: gSoundSelector,
     Notification: Notification
   };
-
-
-
-
-
-
-
-
-
-
-  // record mp3
-  (function () {
-    var button = document.querySelector("#record-btn");
-    var audio = MPP.piano.audio;
-    var context = audio.context;
-    var encoder_sample_rate = 44100;
-    var encoder_kbps = 128;
-    var encoder = null;
-    var scriptProcessorNode = context.createScriptProcessor(4096, 2, 2);
-    var recording = false;
-    var recording_start_time = 0;
-    var mp3_buffer = [];
-    button.addEventListener("click", function (evt) {
-      if (!recording) {
-        // start recording
-        mp3_buffer = [];
-        encoder = new lamejs.Mp3Encoder(2, encoder_sample_rate, encoder_kbps);
-        scriptProcessorNode.onaudioprocess = onAudioProcess;
-        audio.masterGain.connect(scriptProcessorNode);
-        scriptProcessorNode.connect(context.destination);
-        recording_start_time = Date.now();
-        recording = true;
-        button.textContent = "Stop Recording";
-        button.classList.add("stuck");
-        new Notification({ "id": "mp3", "title": "Recording MP3...", "html": "It's recording now.  This could make things slow, maybe.  Maybe give it a moment to settle before playing.<br><br>This feature is experimental.", "duration": 10000 });
-      } else {
-        // stop recording
-        var mp3buf = encoder.flush();
-        mp3_buffer.push(mp3buf);
-        var blob = new Blob(mp3_buffer, { type: "audio/mp3" });
-        var url = URL.createObjectURL(blob);
-        scriptProcessorNode.onaudioprocess = null;
-        audio.masterGain.disconnect(scriptProcessorNode);
-        scriptProcessorNode.disconnect(context.destination);
-        recording = false;
-        button.textContent = "Record MP3";
-        button.classList.remove("stuck");
-        new Notification({ "id": "mp3", "title": "MP3 recording finished", "html": "<a href=\"" + url + "\" target=\"blank\">And here it is!</a> (open or save as)<br><br>This feature is experimental.", "duration": 0 });
-      }
-    });
-    function onAudioProcess(evt) {
-      var inputL = evt.inputBuffer.getChannelData(0);
-      var inputR = evt.inputBuffer.getChannelData(1);
-      var mp3buf = encoder.encodeBuffer(convert16(inputL), convert16(inputR));
-      mp3_buffer.push(mp3buf);
-    }
-    function convert16(samples) {
-      var len = samples.length;
-      var result = new Int16Array(len);
-      for (var i = 0; i < len; i++) {
-        result[i] = 0x8000 * samples[i];
-      }
-      return (result);
-    }
-  })();
-
-
-
-
-
-
 
   // synth
   var enableSynth = false;
@@ -4626,51 +4503,17 @@ $(function () {
     }
   })();
 
+  if (window !== top) {
+    alert("Hey, it looks like you're visiting our site through another website. Consider playing Multiplayer Piano directly at https://mppclone.com")
+  }
 
 
 
 
 
 
-  // Tags
-  /*
-  let tagsButtonEnabled = false;
-  gClient.on('hi', () => {
-    if (tagsButtonEnabled) return;
-    else tagsButtonEnabled = true;
-    const ab = document.createElement("input");
-    ab.name = "tag";
-    ab.type = "text";
-    ab.placeholder = "Tag";
-    ab.maxLength = "50";
-    ab.className = "text";
-    ab.style = "width: 100px; height: 20px;";
-    document.body.getElementsByClassName("dialog").rename.appendChild(ab);
 
-    const cd = document.createElement("input");
-    cd.name = "tagcolor";
-    cd.type = "color";
-    cd.placeholder = "";
-    cd.maxlength = "7";
-    cd.className = "color";
-    document.body.getElementsByClassName("dialog").rename.appendChild(cd);
 
-    const ef = document.createElement("button");
-    ef.addEventListener("click", () => {
-      let tag = {};
-      tag.text = $("#rename input[name=tag]").val();
-      tag.color = $("#rename input[name=tagcolor]").val();
-      gClient.sendArray([{m: "userset", set: {tag: tag}}]);
-    });
-    ef.innerText = "SET TAG";
-    ef.className = "top-button";
-    ef.style.position = "fixed";
-    ef.style.height = "30px";
-    document.body.getElementsByClassName("dialog").rename.appendChild(ef);
- 
-    $("#rename input[name=tag]").val(gClient.getOwnParticipant().tag.text);
-    $("#rename input[name=tagcolor]").val(gClient.getOwnParticipant().tag.color);
-  });*/
 
 
 
