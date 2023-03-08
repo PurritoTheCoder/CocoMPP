@@ -37,15 +37,14 @@ body {
     -webkit-transition: background 1s linear;
 }
 
-a {
+a, .spoiler:hover a {
     cursor: pointer;
     color: #f46;
     transition: color .25s;
 }
 
-a:hover {
+a:hover, .spoiler a:hover {
     color: #e05;
-    transition: color .25s;
 }
 
 .link {
@@ -1188,7 +1187,7 @@ input[type="range"]:hover {
 }
 
 #chat.chatting {
-    background: rgba(64,80,80,.75);
+    background: rgba(64, 80, 80, .75);
     border-radius: 5px;
     box-shadow: 1px 1px 5px #888;
     transition: all .1s;
@@ -1437,10 +1436,7 @@ input[type="range"]:hover {
 }
 
 .discord-button {
-    position: fixed;
-    right: 6px;
-    top: 5px;
-    z-index: 200;
+    right: 36px;
 }
 
 .reddit-button {
@@ -1456,10 +1452,37 @@ input[type="range"]:hover {
 
 code {
     background: #222;
-    border-radius: 4px;
     color: #eee;
-    padding: 2px;
+    padding: 2px 4px;
     text-shadow: none;
+    border-radius: 4px;
+}
+
+.spoiler {
+    background: #222;
+    padding: 2px 0 5px;
+    border-radius: 4px;
+}
+
+.spoiler:not(:hover), .spoiler:not(:hover) > * {
+    color: rgba(0, 0, 0, 0);
+    text-shadow: rgba(0, 0, 0, 0) 1px 1px;
+}
+
+.spoiler:hover {
+    background: rgba(64, 80, 80, .75);
+}
+
+.spoiler, .spoiler > * {
+    transition: color .25s, text-shadow .25s, background .25s;
+    -webkit-transition: color .25s, text-shadow .25s, background .25s;
+    -moz-transition: color .25s, text-shadow .25s, background .25s;
+    -o-transition: color .25s, text-shadow .25s, background .25s;
+}
+
+.spoiler > code {
+    background: rgba(0, 0, 0, 0);
+    padding: 0;
 }
 
 @-webkit-keyframes spin {
