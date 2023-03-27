@@ -13,7 +13,7 @@ Click the blue text to learn more about each point.
 - [Using multiple user IDs to avoid site-wide punishments, kickbans, or mutes by other users](#7f4h2wmhd966)
 - [Exploiting bugs](#q37l3yslii9u)
 - [Phishing and IP grabbers](#qw2rqtqr2nx1)
-- [Abusing bots or scripts](#upsalt4k3ygi), see more information about this [here](https://docs.google.com/document/d/1OrxwdLD1l1TE8iau6ToETVmnLuLXyGBhA0VfAY1Lf14/edit?usp=sharing)
+- [Abusing bots or scripts](#upsalt4k3ygi), see more information about this [here](https://github.com/Hyye123/OpenMPP/blob/master/bot_guide.md)
 - [Promoting violence, illegal, or dangerous activities on the site](#9uj7kavu2qm5)
 - [Promoting breaking the rules](#nrumvd175htz)
 - [Giving out another other user’s personal information without their consent](#gskgxmffw5kc)
@@ -37,7 +37,7 @@ If you find a bug in the server, please report it by opening a ticket on the [Di
 ## **Phishing and IP grabbers**
 Sending any sort of IP grabber link is bannable. Sending links to phishing sites (sites that trick people into giving passwords or other personal information) is also not allowed.
 ## **Abusing bots or scripts**
-The main page on this subject can be found [here](https://docs.google.com/document/d/1OrxwdLD1l1TE8iau6ToETVmnLuLXyGBhA0VfAY1Lf14/edit?usp=sharing). Generally, you should only use bots and scripts with good intention.
+The main page on this subject can be found [here](https://github.com/Hyye123/OpenMPP/blob/master/bot_guide.md). Generally, you should only use bots and scripts with good intention.
 ## **Promoting violence, illegal, or dangerous activities on the site**
 Don’t do this. It should be self explanatory why this is bannable.
 ## **Promoting breaking the rules**
