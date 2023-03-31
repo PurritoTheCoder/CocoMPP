@@ -3187,7 +3187,7 @@ $(function () {
         if (gShowTimestampsInChat) liString += '<span class="timestamp"/>';
         
         if(msg.m === "a") {
-          if (msg.p.tag) liString += '<span class="nametag" style="float:none;"/>'
+          if (msg.p.tag) liString += '<span class="nametag"/>'
         }
 
         if (msg.m === 'dm') {
