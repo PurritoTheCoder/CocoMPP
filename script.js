@@ -2309,7 +2309,8 @@ $(function () {
           .on("mousedown touchstart", function (evt) {
             gPianoMutes.push(part._id);
             if (localStorage) localStorage.pianoMutes = gPianoMutes.join(',');
-            gChatMutes.push(part._id);
+            gf
+            Mutes.push(part._id);
             if (localStorage) localStorage.chatMutes = gChatMutes.join(',');
             $(part.nameDiv).addClass("muted-notes");
             $(part.nameDiv).addClass("muted-chat");
@@ -3184,6 +3185,10 @@ $(function () {
         var isSpecialDm = false;
 
         if (gShowTimestampsInChat) liString += '<span class="timestamp"/>';
+        
+        if(msg.m === "a") {
+          if (msg.p.tag) liString += '<span class="nametag" style="float:none;"/>'
+        }
 
         if (msg.m === 'dm') {
           if (msg.sender._id === gClient.user._id) { //sent dm
@@ -3209,6 +3214,14 @@ $(function () {
         var li = $(liString);
 
         //prefix before dms so people know it's a dm
+        if(msg.m === "a") {
+          if(msg.p.tag) {
+            li.find(".nametag").css("background-color", msg.p.tag.color);
+            li.find(".nametag").css("color", "#ffffff");
+            li.find(".nametag").text(msg.p.tag.text);
+          }
+        }
+        
         if (msg.m === 'dm') {
           if (msg.sender._id === gClient.user._id) { //sent dm
             li.find(".sentDm").text('To');
