@@ -1287,7 +1287,7 @@ $(function () {
     channel_id = "lobby";
   }
 
-  var wssport = 8443;
+  var wssport = 8080;
   if (window.location.hostname === "localhost") {
     var gClient = new Client("ws://localhost:8443");
   } else {
