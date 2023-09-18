@@ -1287,9 +1287,9 @@ $(function () {
     channel_id = "lobby";
   }
 
-  var wssport = 8443;
+  var wssport = 8080;
   if (window.location.hostname === "localhost") {
-    var gClient = new Client("ws://localhost:8443");
+    var gClient = new Client("ws://localhost:8080");
   } else {
     var gClient = new Client('wss://port-8080-server-cocompp.preview.codeanywhere.com/');
   }
