@@ -6,7 +6,7 @@ $(function () {
   //console.log("%cCheck out the source code: https://github.com/LapisHusky/mppclone/tree/main/client\nGuide for coders and bot developers: https://docs.google.com/document/d/1OrxwdLD1l1TE8iau6ToETVmnLuLXyGBhA0VfAY1Lf14/edit?usp=sharing", "color:gray; font-size:12px;");
 
 
-var intervalTimer = setInterval(function(){cardCounter()},100);
+//var intervalTimer = setInterval(function(){cardCounter()},100);
   
   var test_mode = (window.location.hash && window.location.hash.match(/^(?:#.+)*#test(?:#.+)*$/i));
 
