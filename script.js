@@ -1291,7 +1291,7 @@ $(function () {
   if (window.location.hostname === "localhost") {
     var gClient = new Client("ws://localhost:8443");
   } else {
-    var gClient = new Client('wss://port-8080-server-jadesoman55880026.preview.codeanywhere.com');
+    var gClient = new Client('wss://port-8080-server-cocompp.preview.codeanywhere.com/');
   }
   if (loginInfo) {
     gClient.setLoginInfo(loginInfo);
